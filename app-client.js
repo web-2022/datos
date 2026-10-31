@@ -1,0 +1,3 @@
+export const db=window.supabase.createClient('https://rhskytadammthiuigrcc.supabase.co','sb_publishable_E3HM5ZfzwotbbEwY0Qd9OA_Xnlvp9Jk');
+export async function getAccess(){const {data:{session},error}=await db.auth.getSession();if(error)throw error;if(!session)return null;const {data,error:accessError}=await db.from('my_app_access').select('*').single();if(accessError)throw accessError;return data;}
+export function accessMessage(a){return !a?'Inicia sesión en Mis datos para continuar.':a.status==='blocked'?'Tu acceso está bloqueado. Contacta al administrador.':a.status==='pending'?'Tu cuenta está pendiente de aprobación.':'Acceso aprobado.';}
